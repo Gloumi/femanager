@@ -215,6 +215,20 @@ class AbstractValidator extends AbstractValidatorExtbase
                     }
                     break;
 
+                // value must include uppercase letter
+                case 'uppercase':
+                    if (!$this->stringContainsUpperCharacter($value)) {
+                        $isValid = false;
+                    }
+                    break;
+
+                // value must include lowercase letter
+                case 'lowercase':
+                    if (!$this->stringContainsLowerCharacter($value)) {
+                        $isValid = false;
+                    }
+                    break;
+
                 default:
             }
         }
@@ -313,6 +327,28 @@ class AbstractValidator extends AbstractValidatorExtbase
     protected function stringContainsSpaceCharacter($value)
     {
         return (strpos($value, ' ') !== false);
+    }
+
+    /**
+     * String contains space character?
+     *
+     * @param string $value
+     * @return bool
+     */
+    protected function stringContainsUpperCharacter($value)
+    {
+        return (strlen(preg_replace('/[A-Z]/', '', $value)) !== strlen($value));
+    }
+
+    /**
+     * String contains space character?
+     *
+     * @param string $value
+     * @return bool
+     */
+    protected function stringContainsLowerCharacter($value)
+    {
+        return (strlen(preg_replace('/[a-z]/', '', $value)) !== strlen($value));
     }
 
     /**
